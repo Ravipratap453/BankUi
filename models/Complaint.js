@@ -1,4 +1,4 @@
-// models/Complaint.js
+
 const mongoose = require('mongoose');
 
 const ComplaintSchema = new mongoose.Schema({
@@ -35,5 +35,3 @@ const ComplaintSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Complaint', ComplaintSchema);
-
-
