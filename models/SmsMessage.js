@@ -9,3 +9,4 @@ const SmsMessageSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('SmsMessage', SmsMessageSchema);
+
