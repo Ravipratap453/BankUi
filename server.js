@@ -1,4 +1,4 @@
-//server.js
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -27,11 +27,11 @@ app.use('/api/complaints', complaintRoutes);
 
 const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => {
-    console.error('Error connecting to MongoDB:', err);
-    process.exit(1); // Exit the process with an error code
-  });
+    .then(() => console.log('MongoDB Connected'))
+    .catch(err => {
+        console.error('Error connecting to MongoDB:', err);
+        process.exit(1); // Exit the process with an error code
+    });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
