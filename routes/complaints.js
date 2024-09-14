@@ -16,8 +16,8 @@ router.post("/newComplaint", async (req, res) => {
     const savedComplaint = await newComplaint.save();
     res.status(201).json(savedComplaint);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    console.error('Error creating complaint:', err.message);
+    res.status(500).send('Server Error');
   }
 });
 
@@ -26,24 +26,28 @@ router.get("/allComplaint", async (req, res) => {
     const complaints = await Complaint.find().sort({ createdAt: -1 });
     res.json(complaints);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    console.error('Error fetching complaints:', err.message);
+    res.status(500).send('Server Error');
   }
 });
 
 router.post('/saveSms', async (req, res) => {
-  const { smsList } = req.body; // Destructure the smsList from the request body
-  
+  const { smsList } = req.body;
+
+  // Validate that smsList is an array
+  if (!smsList || !Array.isArray(smsList)) {
+    return res.status(400).json({ error: 'Invalid SMS data. Please provide an array of SMS messages.' });
+  }
+
   try {
     // Insert the list of SMS messages into the database
     const savedMessages = await SmsMessage.insertMany(smsList);
-
     return res.status(201).json({
       message: 'SMS data saved successfully',
       savedMessages,
     });
   } catch (error) {
-    console.error('Error saving SMS data:', error);
+    console.error('Error saving SMS data:', error.message);
     return res.status(500).json({
       error: 'Failed to save SMS data',
     });
@@ -51,3 +55,5 @@ router.post('/saveSms', async (req, res) => {
 });
 
 module.exports = router;
+
+
